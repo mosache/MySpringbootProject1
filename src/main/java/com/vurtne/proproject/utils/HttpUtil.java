@@ -23,12 +23,22 @@ public class HttpUtil {
         acceptTypes.add(MediaType.APPLICATION_JSON);
         header.setAccept(acceptTypes);
         HttpEntity<MultiValueMap<String,String>> request = new HttpEntity<>(params,header);
-        ResponseEntity<T> resp = httpClient.postForEntity(url, request, tClass);
-        return resp.getBody();
+        try{
+            ResponseEntity<T> resp = httpClient.postForEntity(url, request, tClass);
+            return resp.getBody();
+        }catch (Exception e){}
+
+        return null;
     }
 
     public <T> T get(String url, Class<T> tClass){
-        ResponseEntity<T> resp = httpClient.getForEntity(url,tClass);
-        return resp.getBody();
+        try{
+            ResponseEntity<T> resp = httpClient.getForEntity(url,tClass);
+            return resp.getBody();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }

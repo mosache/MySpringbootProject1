@@ -429,4 +429,48 @@ public class UserInfo {
             return space;
         }
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "gists_url='" + gists_url + '\'' +
+                ", repos_url='" + repos_url + '\'' +
+                ", two_factor_authentication=" + two_factor_authentication +
+                ", following_url='" + following_url + '\'' +
+                ", bio='" + bio + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", login='" + login + '\'' +
+                ", type='" + type + '\'' +
+                ", blog='" + blog + '\'' +
+                ", private_gists=" + private_gists +
+                ", total_private_repos=" + total_private_repos +
+                ", subscriptions_url='" + subscriptions_url + '\'' +
+                ", updated_at='" + updated_at + '\'' +
+                ", site_admin=" + site_admin +
+                ", disk_usage=" + disk_usage +
+                ", collaborators=" + collaborators +
+                ", company='" + company + '\'' +
+                ", owned_private_repos=" + owned_private_repos +
+                ", id=" + id +
+                ", public_repos=" + public_repos +
+                ", gravatar_id='" + gravatar_id + '\'' +
+                ", plan=" + plan +
+                ", email='" + email + '\'' +
+                ", organizations_url='" + organizations_url + '\'' +
+                ", hireable='" + hireable + '\'' +
+                ", starred_url='" + starred_url + '\'' +
+                ", followers_url='" + followers_url + '\'' +
+                ", public_gists=" + public_gists +
+                ", url='" + url + '\'' +
+                ", received_events_url='" + received_events_url + '\'' +
+                ", followers=" + followers +
+                ", avatar_url='" + avatar_url + '\'' +
+                ", events_url='" + events_url + '\'' +
+                ", html_url='" + html_url + '\'' +
+                ", following=" + following +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", node_id='" + node_id + '\'' +
+                '}';
+    }
 }
