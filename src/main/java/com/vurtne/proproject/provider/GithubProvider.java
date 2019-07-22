@@ -4,6 +4,8 @@ import com.vurtne.proproject.utils.HttpUtil;
 import com.vurtne.proproject.vo.UserInfo;
 import com.vurtne.proproject.vo.UserTokenBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -14,10 +16,16 @@ public class GithubProvider {
     @Autowired
     private HttpUtil httpUtil;
 
+    @Value("${github.client.id}")
+    private String client_id;
+
+    @Value("${github.client.secret}")
+    private String client_secret;
+
     public String getAccess_Token(String code){
         MultiValueMap<String,String> map = new LinkedMultiValueMap<>();
-        map.add("client_id","ffbb683f5470d1be9669");
-        map.add("client_secret","84ef0a64dff8649aea2a4dbcaea0b131f61e4a44");
+        map.add("client_id",client_id);
+        map.add("client_secret",client_secret);
         map.add("code",code);
         UserTokenBean token = httpUtil.post("https://github.com/login/oauth/access_token", map, UserTokenBean.class);
         return token.getAccess_token();
