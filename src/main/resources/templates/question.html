@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${question.getTitle()}"></title>
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/main.css}">
+    <script th:src="@{~/js/jquery.js}"></script>
+    <script th:src="@{~/js/main.js}"></script>
+</head>
+
+<body>
+<div th:replace="nav"></div>
+
+<div class="container-fluid content-box">
+    <div class="row" style="padding-bottom: 10px">
+        <div class="col-lg-9 col-md-9">
+            <h2 th:text="${question.getTitle()}"></h2>
+            <p style="font-size: 14px;color: #cecece">&nbsp;作者&nbsp;<a th:text="''+${question.getUser() != null ? question.getUser().getName() : ''}" href="#"></a>&nbsp;|&nbsp;<span th:text="'发布于 '+${#dates.format(question.getAdd_time())}"></span>&nbsp;|&nbsp;阅读数：<span th:text="${question.getView_count()}"></span></p>
+            <hr>
+
+            <p th:text="${question.getDes()}"></p>
+
+            <hr>
+
+            <div>
+                <a th:if="${question.getCreator_id()} == ${#session.getAttribute('user').id}" th:href="@{'/publish/'+${question.getId()}}" style="font-size: 14px;color: #999;"><span class="glyphicon glyphicon-pencil"></span ><span th:text="编辑" style="margin-left: 5px"></span></a>
+            </div>
+
+            <hr>
+
+            <h5 th:text="${question.getCommit_count()+'个回复'}"></h5>
+
+            <hr>
+
+            <ul class="" th:if="${commits != null}" style="list-style: none;padding-left: 8px">
+                <li class="list-item" th:each=" item,status : ${commits}" style="padding: 16px;font-size: 16px;border-bottom:1px solid #eee;">
+                    <div class="media" style="margin-left: 0">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" th:src="${item.user == null ? '':item.getUser().getAvatar_url()}" alt="..." style="width: 40px;height: 40px;">
+                            </a>
+                        </div>
+                        <div class="media-body" style="padding-left:16px">
+                            <h4 class="media-heading" th:text="${item.user != null ? item.getUser().getName() : ''}"></h4>
+                            <div>
+                                <p th:text="${item.getContent()}"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="commit-bottom-bar" style="margin-bottom: 10px;padding-left: 70px;">
+                        <a href="#" class="icon"><span class="glyphicon glyphicon-thumbs-up "></span></a>
+                        <a href="#" class="icon"><span class="glyphicon glyphicon-comment"></span></a>
+                        <span th:text="${#dates.format(item.getAdd_time(),'yyyy-MM-dd')}" class="pull-right"></span>
+                    </div>
+
+                </li>
+            </ul>
+
+            <div class="commit-box">
+                <div class="media user_avatar" style="margin-top: 15px">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded" th:src="${question.getUser().getAvatar_url()}" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body" style="padding-top: 10px">
+                        <h5 class="media-heading" th:text="${question.getUser().getName()}"></h5>
+                    </div>
+                </div>
+
+                <input type="hidden" id="parent-id" th:value="${question.getId()}">
+                <textarea class="form-control" rows="8" style="resize: none;margin: 10px 0" id="commit-content"></textarea>
+
+                <button type="button" class="btn btn-success" style="width: 100px;float: right" th:onclick="postCommit()">提交</button>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+</body>
+</html>

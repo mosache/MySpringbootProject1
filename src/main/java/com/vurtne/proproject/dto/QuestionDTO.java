@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class QuestionDTO {
-    private int id;
+    private Long id;
 
     private String title;
 

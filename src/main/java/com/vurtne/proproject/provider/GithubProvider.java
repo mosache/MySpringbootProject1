@@ -34,6 +34,7 @@ public class GithubProvider {
     public UserInfo getUserInfo(String access_token){
         UserInfo userInfo = httpUtil.get("https://api.github.com/user?access_token="+access_token, UserInfo.class);
         return userInfo;
-
     }
+
+
 }

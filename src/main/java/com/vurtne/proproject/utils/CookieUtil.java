@@ -10,8 +10,19 @@ public class CookieUtil {
         resp.addCookie(cookie);
     }
 
+
+    public static void removeCookie(HttpServletResponse resp, String key){
+        Cookie cookie = new Cookie(key, null);
+        cookie.setMaxAge(0);
+        resp.addCookie(cookie);
+    }
+
     public static String  getCookie(HttpServletRequest request, String key, String defaultValue){
         Cookie[] cookies = request.getCookies();
+
+        if (cookies == null){
+            return defaultValue;
+        }
 
         for (Cookie c : cookies) {
             if (key.equals(c.getName())) {

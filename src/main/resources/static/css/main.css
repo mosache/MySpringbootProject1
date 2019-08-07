@@ -1,0 +1,62 @@
+body {
+    background-color: #eeeeee;
+}
+
+p {
+    white-space: pre-line;
+}
+
+.content-box {
+    background-color: white;
+    margin: 16px
+}
+
+.my-list-group {
+    border: none;
+    box-shadow: none;
+}
+
+.my-list-item {
+    border: none;
+    box-shadow: none;
+}
+
+.user_avatar .media-left img {
+    width: 40px;
+    height: 40px;
+}
+
+.commit-bottom-bar {
+    color: grey;
+    font-size: 12px;
+}
+
+.commit-bottom-bar .icon {
+    color: white;
+    box-sizing: content-box;
+    font-size: 14px;
+    display: inline-block;
+    width: 40px;
+    height: 14px;
+    line-height: 14px;
+    padding: 2px;
+    background: #ccc;
+    text-align: center;
+    vertical-align: center;
+}
+
+.commit-bottom-bar .icon:hover {
+    background: #1b6d85;
+}
+
+.commit-bottom-bar .icon {
+    margin-left: 2px;
+}
+
+.commit-bottom-bar .icon:nth-child(1){
+    margin-left: 0;
+}
+
+
+
+

@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class Question {
 
-    private int id;
+    private Long id;
 
     private String title;
 
@@ -19,7 +19,7 @@ public class Question {
 
     private Date modify_time;
 
-    private int creator_id;
+    private Long creator_id;
 
     private int view_count;
 

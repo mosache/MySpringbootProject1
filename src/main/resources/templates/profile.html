@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的问题</title>
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/main.css}">
+    <script th:src="@{~/js/jquery.js}"></script>
+
+</head>
+<body>
+<div th:replace="nav"></div>
+
+<div class="container-fluid content-box">
+    <div class="row">
+        <div class="col-lg-9 col-md-9">
+            <h2 th:text="${actionName}"></h2>
+            <hr>
+            <div class="row">
+
+                <ul class="" th:if="${page != null}" style="list-style: none;padding-left: 8px">
+                    <li class="list-item" th:each=" item,status : ${page.getData()}" style="padding: 16px;font-size: 16px;border-bottom:1px solid #eee;">
+                        <div class="media" style="margin-left: 0">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" th:src="${item.user == null ? '':item.getUser().getAvatar_url()}" alt="..." style="width: 40px;height: 40px;">
+                                </a>
+                            </div>
+                            <div class="media-body" style="padding-left:8px">
+                                <h4 class="media-heading" th:text="${item.getTitle()}"></h4>
+                                <div style="font-size: 12px;color: gray;padding-top: 5px">
+                                    <span th:text="${item.user == null ? '':item.getUser().getName()}"></span> 发起了问题 <span th:text="${item.getCommit_count()}"></span> 个评论 • <span th:text="${item.getView_count()}"></span> 次浏览 • <span th:text="${#dates.format(item.getAdd_time(),'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="list-group my-list-group">
+                <a href="#" class="list-group-item my-list-item">我的问题</a>
+                <!--<a href="#" class="list-group-item">Dapibus ac facilisis in</a>-->
+                <!--<a href="#" class="list-group-item">Morbi leo risus</a>-->
+                <!--<a href="#" class="list-group-item">Porta ac consectetur ac</a>-->
+                <!--<a href="#" class="list-group-item">Vestibulum at eros</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+</body>
+</html>

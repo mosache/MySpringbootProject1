@@ -3,36 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/main.css}">
+    <script th:src="@{~/js/jquery.js}"></script>
 
 </head>
 <body>
 
 <div th:replace="nav"></div>
 
-<div >
-    <ul class="list-group" >
-        <li class="list-item" th:each=" item,status : ${list}" style="font-size: 16px">
-            <div class="media" style="padding-left: 1.2em">
+<div class="container-fluid main content-box">
+    <div class="row">
+
+    <ul class="" th:if="${page != null}" style="list-style: none;padding-left: 8px">
+        <li class="list-item" th:each=" item,status : ${page.getData()}" style="padding: 16px;font-size: 16px;border-bottom:1px solid #eee;">
+            <div class="media" style="margin-left: 0">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object" th:src="${item.getUser().getAvatar_url()}" alt="..." style="width: 40px;height: 40px;">
+                        <img class="media-object" th:src="${item.user == null ? '':item.getUser().getAvatar_url()}" alt="..." style="width: 40px;height: 40px;">
                     </a>
                 </div>
-                <div class="media-body" style="padding-left: 1.2em">
-                    <h4 class="media-heading" th:text="${item.getTitle()}"></h4>
+                <div class="media-body" style="padding-left:8px">
+                    <a class="media-heading" th:href="@{'/question/'+${item.getId()}}"><h4 th:text="${item.getTitle()}"></h4></a>
                     <div style="font-size: 12px;color: gray;padding-top: 5px">
-                        <span th:text="${item.getUser().getName()}"></span> 发起了问题 <span th:text="${item.getCommit_count()}"></span> 个评论 • <span th:text="${item.getView_count()}"></span> 次浏览 • <span th:text="${#dates.formatISO(#dates.createNow())}"></span> 前
+                        <span th:text="${item.user == null ? '':item.getUser().getName()}"></span> 发起了问题 <span th:text="${item.getCommit_count()}"></span> 个评论 • <span th:text="${item.getView_count()}"></span> 次浏览 • <span th:text="${#dates.format(item.getAdd_time(),'yyyy-MM-dd HH:mm:ss')}"></span>
                     </div>
 
                 </div>
             </div>
-            <hr>
         </li>
     </ul>
+
+    </div>
+
+        <nav aria-label="Page navigation" th:if="${page != null}">
+            <ul class="pagination">
+                <li th:if="${page.isShowFirst()}">
+                    <a th:href="@{'/?page=1'}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li th:if="${page.isShowPrevious()}">
+                    <a th:href="@{'/?page='+${page.getCurrentPage()-1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li th:each="item,_ : ${page.getPages()}" th:class="${page.getCurrentPage() == item ? 'active':''}"><a th:href="@{'/?page='+${item}}" th:text="${item}"></a></li>
+
+                <li th:if="${page.isShowNext()}">
+                    <a th:href="@{'/?page='+${page.getCurrentPage() + 1}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li th:if="${page.isShowLast()}">
+                    <a th:href="@{'/?page='+${page.getTotalPage()}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 </div>
-    <script src="js/bootstrap.min.js"></script>
+    <script th:src="@{~/js/bootstrap.min.js}"></script>
 </body>
 </html>
