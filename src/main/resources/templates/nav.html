@@ -35,7 +35,7 @@
 
                     <li>
                         <ul style="padding-left: 40px">
-                            <li th:unless="${session.user != null }"><a href="https://github.com/login/oauth/authorize?client_id=ffbb683f5470d1be9669&scope=user&redirect_uri=http://localhost:8080/loginSuccess">登录</a></li>
+                            <li th:unless="${session.user != null }"><a th:href="@{https://github.com/login/oauth/authorize(client_id='ffbb683f5470d1be9669',scope='user',redirect_uri=${#httpServletRequest.getScheme()+'://'+#httpServletRequest.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/'+'loginSuccess'})}">登录</a></li>
                             <li class="dropdown" th:if="${session.user!= null }">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="${session.user.getName()!=null}" th:text="${session.user.getName()}"> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
