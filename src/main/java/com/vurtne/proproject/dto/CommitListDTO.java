@@ -20,6 +20,8 @@ public class CommitListDTO {
 
     private Integer parent_type;
 
+    private Integer commit_count;
+
     private User user;
 
 }

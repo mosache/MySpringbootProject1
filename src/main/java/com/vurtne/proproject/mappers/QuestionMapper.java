@@ -3,9 +3,12 @@ package com.vurtne.proproject.mappers;
 import com.vurtne.proproject.dto.QuestionDTO;
 import com.vurtne.proproject.model.Question;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.JDBCType;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -83,5 +86,6 @@ public interface QuestionMapper {
 
     @Update("update t_Question set commit_count = commit_count + #{commit_count} where id=#{id}")
     void addCommitCount(Question q);
+
 
 }

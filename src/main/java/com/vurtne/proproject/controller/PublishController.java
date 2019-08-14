@@ -61,6 +61,7 @@ public class PublishController {
 
         if (q_id == 0){
             q = new Question();
+            q.setId(q_id);
             q.setTitle(title);
             q.setDes(des);
             q.setTag(tag);

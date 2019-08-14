@@ -6,6 +6,10 @@ p {
     white-space: pre-line;
 }
 
+button {
+    outline: none;
+}
+
 .content-box {
     background-color: white;
     margin: 16px
@@ -57,6 +61,26 @@ p {
     margin-left: 0;
 }
 
+/*标签*/
+.tag-style {
+    margin-right: 5px;
+}
 
+.tag-bar .label {
+    margin-right: 8px;
+    vertical-align: center;
+}
+#nav-ul{
+    padding-left: 10px;
+}
 
+#nav-ul li{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
 
+a:hover {
+    text-decoration: none;
+}

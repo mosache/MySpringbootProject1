@@ -24,10 +24,16 @@ public interface CommitMapper {
             @Result(property = "modify_time",column = "modify_time"),
             @Result(property = "content",column = "content"),
             @Result(property = "parent_type",column = "parent_type"),
+            @Result(property = "commit_count",column = "id",one = @One(select = "com.vurtne.proproject.mappers.CommitMapper.getSubCommitCountById")),
             @Result(property = "user",column = "creator_id",
                     one = @One(select = "com.vurtne.proproject.mappers.UserMapper.getUserByID")
             )
-    }
+        }
     )
     ArrayList<CommitListDTO> list(CommitDTO commitDTO);
+
+    @Select("select count(*) from t_Commit where parent_type=2 and parent_id=#{id}")
+    Integer getSubCommitCountById(Long id);
+
+
 }

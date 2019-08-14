@@ -3,18 +3,27 @@ package com.vurtne.proproject.service;
 import com.vurtne.proproject.dto.PaginationDTO;
 import com.vurtne.proproject.dto.QuestionDTO;
 import com.vurtne.proproject.exceptions.QuestionNotExistException;
+import com.vurtne.proproject.mappers.QuestionExtMapper;
 import com.vurtne.proproject.mappers.QuestionMapper;
 import com.vurtne.proproject.model.Question;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class QuestionService {
 
     @Resource
     private QuestionMapper questionMapper;
+
+    @Resource
+    private QuestionExtMapper questionExtMapper;
 
     public ArrayList<QuestionDTO> list(int offSet,int size){
         return questionMapper.list(offSet,size);
@@ -57,5 +66,16 @@ public class QuestionService {
         q.setId(id);
         q.setView_count(incCount);
         questionMapper.addViewCount(q);
+    }
+
+    public List<QuestionDTO> getRelativedQuestions(QuestionDTO question) {
+        String[] tags = question.getTag().split(",");
+        String tagExps = Arrays.stream(tags).collect(Collectors.joining("|"));
+        QuestionDTO example = new QuestionDTO();
+        example.setTag(tagExps);
+        example.setId(question.getId());
+        List<QuestionDTO> questionDTOS = questionExtMapper.relativeQuestionByTag(example);
+        return questionDTOS;
+
     }
 }

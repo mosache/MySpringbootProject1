@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{~/css/bootstrap-theme.min.css}">
     <link rel="stylesheet" th:href="@{~/css/main.css}">
     <script th:src="@{~/js/jquery.js}"></script>
+    <script th:src="@{~/js/main.js}"></script>
 
 </head>
 <body>
@@ -40,9 +41,26 @@
                     <input class="form-control" id="tag" style="resize: none" name="tag" th:value="${edit != null ? edit.getTag() : ''}"></input>
                 </div>
 
-                <input type="hidden" name="q_id" th:value="${edit.getId()}" th:if="${edit != null}">
+                <input type="hidden" name="q_id" th:value="${edit.getId()}" th:if="${edit != null}" id="tag_input">
 
-                <div class="form-group">
+                <div class="tag-bar">
+                    <div class="label label-info" onclick="onTagClick(this)">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <span>java</span>
+                    </div>
+
+                    <div class="label label-info" onclick="onTagClick(this)">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <span>python</span>
+                    </div>
+
+                    <div class="label label-info" onclick="onTagClick(this)">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <span>objc</span>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 10px">
                     <input type="submit" value="提交" class="btn btn-primary btn-lg">
                 </div>
             </form>

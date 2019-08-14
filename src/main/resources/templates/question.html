@@ -18,6 +18,8 @@
         <div class="col-lg-9 col-md-9">
             <h2 th:text="${question.getTitle()}"></h2>
             <p style="font-size: 14px;color: #cecece">&nbsp;作者&nbsp;<a th:text="''+${question.getUser() != null ? question.getUser().getName() : ''}" href="#"></a>&nbsp;|&nbsp;<span th:text="'发布于 '+${#dates.format(question.getAdd_time())}"></span>&nbsp;|&nbsp;阅读数：<span th:text="${question.getView_count()}"></span></p>
+
+            <span class="label label-info tag-style" th:text="${tag}" th:each="tag:${question.getTag().split(',')}"></span>
             <hr>
 
             <p th:text="${question.getDes()}"></p>
@@ -52,11 +54,24 @@
                     </div>
 
                     <div class="commit-bottom-bar" style="margin-bottom: 10px;padding-left: 70px;">
-                        <a href="#" class="icon"><span class="glyphicon glyphicon-thumbs-up "></span></a>
-                        <a href="#" class="icon"><span class="glyphicon glyphicon-comment"></span></a>
+                        <button class="icon"><span class="glyphicon glyphicon-thumbs-up "></span></button>
+                        <button class="icon" onclick="showSubCommit(this)" th:data-id="${item.getId()}"><span class="glyphicon glyphicon-comment"></span></button>
                         <span th:text="${#dates.format(item.getAdd_time(),'yyyy-MM-dd')}" class="pull-right"></span>
                     </div>
 
+                    <!--二级评论-->
+                    <div style="border: #eee solid 1px;margin-left: 70px;" class="collapse" th:id="${'commit-'+item.getId()}">
+                        <ul style="padding-left: 0px">
+
+                        </ul>
+
+                        <div style="padding: 20px" class="clearfix" >
+                            <input th:id="subCommit-text+${item.getId()}" type="text" class="form-control" placeholder="请输入评论。。。">
+
+                            <button type="button" class="btn btn-success pull-right" style="margin-top: 10px;outline: none" th:onclick="'postSubCommit('+${item.getId()}+')'">提交</button>
+                        </div>
+
+                    </div>
                 </li>
             </ul>
 
@@ -75,12 +90,19 @@
                 <input type="hidden" id="parent-id" th:value="${question.getId()}">
                 <textarea class="form-control" rows="8" style="resize: none;margin: 10px 0" id="commit-content"></textarea>
 
-                <button type="button" class="btn btn-success" style="width: 100px;float: right" th:onclick="postCommit()">提交</button>
+                <button type="button" class="btn btn-success" style="width: 100px;float: right" th:onclick="postCommit(1)">提交</button>
             </div>
         </div>
 
         <div class="col-lg-3 col-md-3">
-
+            <div>
+                <h3>相关问题</h3>
+                <ul style="list-style: none;padding-left: 0;font-size: 12px">
+                    <li th:each="item : ${relativeQuestions}" style="margin-top: 5px">
+                        <a th:href="@{'/question/'+${item.getId()}}" th:text="${item.getTitle()}"></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

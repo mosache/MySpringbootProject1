@@ -27,6 +27,8 @@ public class QuestionController {
         questionService.addViewCount(id,1);
         QuestionDTO question = questionService.getQuestionByID(id);
 
+        ArrayList<QuestionDTO> relativedQuestions = (ArrayList<QuestionDTO>) questionService.getRelativedQuestions(question);
+
         CommitDTO commitDTO = new CommitDTO();
         commitDTO.setParent_type(1);
         commitDTO.setParent_id(question.getId());
@@ -34,6 +36,7 @@ public class QuestionController {
 
         model.addAttribute("question",question);
         model.addAttribute("commits",commitList);
+        model.addAttribute("relativeQuestions",relativedQuestions);
 
         return "question";
     }
